@@ -13,8 +13,8 @@ def lyrics_to_frequencies(lyrics):
         else:
             myDict[word] = 1
     return myDict
-    
-    
+
+
 she_loves_you = ['she', 'loves', 'you', 'yeah', 'yeah', 'yeah',
 'she', 'loves', 'you', 'yeah', 'yeah', 'yeah',
 'she', 'loves', 'you', 'yeah', 'yeah', 'yeah',
@@ -66,7 +66,7 @@ she_loves_you = ['she', 'loves', 'you', 'yeah', 'yeah', 'yeah',
 'yeah', 'yeah', 'yeah', 'yeah'
 ]
 
-beatles = lyrics_to_frequencies(she_loves_you)
+beatles = lyrics_to_frequencies(she_loves_you) # 會得到一個dictionary
 
 
 def most_common_words(freqs):
@@ -76,13 +76,13 @@ def most_common_words(freqs):
     for k in freqs:
         if freqs[k] == best:
             words.append(k)
-    return (words, best)
-    
-def words_often(freqs, minTimes):
+    return (words, best) #會得到(list, int)
+
+def words_often(freqs, minTimes): # freqs是歌詞出現頻率的dictionary
     result = []
     done = False
     while not done:
-        temp = most_common_words(freqs)
+        temp = most_common_words(freqs) #temp=(list, int)
         if temp[1] >= minTimes:
             result.append(temp)
             for w in temp[0]:
@@ -90,10 +90,10 @@ def words_often(freqs, minTimes):
         else:
             done = True
     return result
-    
-print(words_often(beatles, 5))
 
-            
-    
+print(words_often(beatles, 5)) # beatles是一個dictionary
 
-    
+
+
+
+
