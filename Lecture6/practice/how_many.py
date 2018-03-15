@@ -1,0 +1,9 @@
+def how_many(aDict):
+    '''
+    aDict: A dictionary, where all the values are lists.
+    returns: int, how many values are in the dictionary.
+    '''
+    numResult = 0
+    for i in aDict:
+        numResult = numResult + len(aDict[i])
+    return numResult
