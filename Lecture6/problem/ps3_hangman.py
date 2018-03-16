@@ -57,6 +57,7 @@ def isWordGuessed(secretWord, lettersGuessed):
         for j in lettersGuessed:
             if secretWord[i] == j:
                 guessed = True
+                break
         if guessed == False:
             return False
     return True
@@ -90,8 +91,7 @@ def getAvailableLetters(lettersGuessed):
     import string
     result = string.ascii_lowercase
     for i in lettersGuessed:
-        if i in result:
-            result = result[:result.find(i)] + result[result.find(i)+1:]
+        result = result[:result.find(i)] + result[result.find(i)+1:]
     return result
 
 
@@ -115,22 +115,16 @@ def hangman(secretWord):
 
     Follows the other limitations detailed in the problem write-up.
     '''
-    print ("Welcome to the game, Hangman!")
-    print ("I am thinking of a word that is", len(secretWord), "letters long.")
+    print ("Welcome to the game, Hangman!" + "\n" + "I am thinking of a word that is", len(secretWord), "letters long.")
     life = 8
     lettersGuessed = []
     import string
     avaiLetters = string.ascii_lowercase
-    while life>0:
-        if isWordGuessed(secretWord, lettersGuessed):
-            print ("------------")
-            print ("Congratulations, you won!")
-            break
-        print ("------------")
-        print ("You have", life, " guesses left.")
-        print ("Available letters: " + avaiLetters )
-        guess = str(input("Please guess a letter: "))
-        guess = guess.lower()
+    while life>0 and isWordGuessed(secretWord, lettersGuessed) == False:
+
+        print ("------------" + "\n" + "You have", life, " guesses left." + "\n" + "Available letters: " + avaiLetters )
+        guess = str(input("Please guess a letter: ")).lower()
+
         if guess in lettersGuessed:
             print ("Oops! You've already guessed that letter: " + getGuessedWord(secretWord, lettersGuessed))
         elif guess in secretWord:
@@ -140,9 +134,13 @@ def hangman(secretWord):
         else:
             lettersGuessed.append(guess)
             avaiLetters = getAvailableLetters(lettersGuessed)
-            life = life - 1
             print ("Oops! That letter is not in my word: " + getGuessedWord(secretWord, lettersGuessed))
-    if not isWordGuessed(secretWord, lettersGuessed):
+            life = life - 1
+
+    if isWordGuessed(secretWord, lettersGuessed):
+        print ("------------")
+        print ("Congratulations, you won!")
+    else:
         print ("------------")
         print ("Sorry, you ran out of guesses. The word was else. ")
 
